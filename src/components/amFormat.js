@@ -5,6 +5,8 @@ export default (amount) => {
   let amount_rem = amount.substring(0, amount.length-5);
   if (amount_rem != '') {
     amount_end = ','+amount_end;
+  }
+  if (amount.length > 2 ) {
     amount_decimal = '.'+amount_decimal;
   }
   return amount_rem.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + amount_end + amount_decimal;

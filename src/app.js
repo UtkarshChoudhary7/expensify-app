@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import AppRouter from './routers/AppRouter';
+import AppRouter, { history } from './routers/AppRouter';
 import configureStore from './store/configureStore';
 import { startSetExpenses } from './actions/expenses';
-import { setTextFilter, sortByDate, sortByAmount, setStartDate, setEndDate } from './actions/filters';
+import { login, logout } from './actions/auth';
 import getVisibleExpenses from './selectors/visibleExpenses';
 import 'normalize.css/normalize.css';
 import './styles/styles.scss';
-import './firebase/firebase';
+import { firebase } from './firebase/firebase';
 
 const store = configureStore();
 
@@ -18,9 +18,29 @@ const jsx = (
   </Provider>
 );
 
+let hasRendered = false;
+const renderApp = () => {
+  if (!hasRendered) {
+    ReactDOM.render(jsx, appRoot);
+    hasRendered = true;
+  }
+};
+
 const appRoot = document.getElementById('app');
 ReactDOM.render(<p>Loading...</p>, appRoot);
 
-store.dispatch(startSetExpenses()).then(() => {
-  ReactDOM.render(jsx, appRoot);
+firebase.auth().onAuthStateChanged((user) => {
+  if (user) {
+    store.dispatch(login(user.uid));
+    store.dispatch(startSetExpenses()).then(() => {
+      renderApp();
+      if (history.location.pathname === '/') {
+        history.push('/dashboard');
+      }
+    });
+  } else {
+    store.dispatch(logout());
+    renderApp();
+    history.push('/');
+  }
 });
