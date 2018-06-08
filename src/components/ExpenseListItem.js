@@ -7,15 +7,18 @@ import amFormat from './amFormat';
 
 const ExpenseListItem = ({ id, description, amount, createdAt, dispatch }) => (
   <div>
-    <Link to={`/edit/${id}`}>
-      <h3>{description}</h3>
-    </Link>
-    <p>&#8377;{amFormat(amount)}
-        -
-       {moment(createdAt).format('MMMM Do, YYYY')}</p>
-    <button onClick={() => {
-        dispatch(startRemoveExpense({ id }));
-      }}>Remove</button>
+    <div className="list-item">
+      <button className="list-item__rem" onClick={() => {
+          dispatch(startRemoveExpense({ id }));
+      }}></button>
+      <Link className="list-link" to={`/edit/${id}`}>
+        <div>
+          <h3 className="list-link__title">{description}</h3>
+          <span className="list-link__sub-title">{moment(createdAt).format('MMMM Do, YYYY')}</span>
+        </div>
+        <h3 className="list-link__data">&#8377;{amFormat(amount)}</h3>
+      </Link>
+    </div>
   </div>
 );
 

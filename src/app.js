@@ -9,6 +9,7 @@ import getVisibleExpenses from './selectors/visibleExpenses';
 import 'normalize.css/normalize.css';
 import './styles/styles.scss';
 import { firebase } from './firebase/firebase';
+import LoadingPage from './components/LoadingPage';
 
 const store = configureStore();
 
@@ -27,7 +28,7 @@ const renderApp = () => {
 };
 
 const appRoot = document.getElementById('app');
-ReactDOM.render(<p>Loading...</p>, appRoot);
+ReactDOM.render(<LoadingPage />, appRoot);
 
 firebase.auth().onAuthStateChanged((user) => {
   if (user) {

@@ -1,0 +1,90 @@
+.list-header {
+  background: $light-grey;
+  border: 1px solid darken($light-grey, 7%);
+  color: $grey;
+  display: flex;
+  justify-content: space-between;
+  padding: $s-size $m-size;
+}
+
+.list-body {
+  margin-bottom: $m-size;
+
+  @media (min-width: $desktop-breakpoint) {
+    margin-bottom: $l-size;
+  }
+}
+
+.list-item {
+  border: 1px solid darken($light-grey, 7%);
+  border-top: none;
+  position: relative;
+  transition: background .3s ease;
+  &:hover {
+    background: $light-grey;
+  }
+}
+
+.list-link {
+  color: $dark-grey;
+  display: flex;
+  flex-direction: column;
+  padding: $s-size;
+  text-decoration: none;
+
+  @media (min-width: $desktop-breakpoint) {
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: $m-size;
+  }
+}
+
+.list-link__title {
+  margin: 0;
+  word-break: break-all;
+}
+
+.list-link__sub-title {
+  color: $grey;
+  font-size: $font-size-small;
+}
+
+.list-link__data {
+  margin: $s-size 0 0 0;
+  @media (min-width: $desktop-breakpoint) {
+    margin: 0;
+    padding-left: $s-size;
+  }
+}
+
+.list-link--message {
+  align-items: center;
+  color: $grey;
+  justify-content: center;
+  padding: $m-size;
+  &:hover {
+    background: none;
+  }
+}
+
+.list-item__rem {
+  background: url('/images/cross.svg');
+  border: none;
+  height: 12px;
+  position: absolute;
+  left: 100%;
+  margin: 0.8rem 0;
+  transform: translateX(-150%);
+  z-index: 1;
+
+  @media (min-width: $desktop-breakpoint) {
+    transition: all 0.3s ease;
+    &:hover {
+      transform: translate(-150%, -1px);
+    }
+    &:active {
+      transform: translate(-150%, -0.5px);
+    }
+  }
+}
